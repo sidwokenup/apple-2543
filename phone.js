@@ -3,4 +3,4 @@
 // It will automatically update everywhere on the website.
 // ---------------------------------------------------------
 
-window.SITE_PHONE_NUMBER = "+1 (833) 626-2981";
+window.SITE_PHONE_NUMBER = "+1 (864) 743-3600";
